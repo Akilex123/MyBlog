@@ -13,18 +13,24 @@ import { useState } from "react";
 function App() {
   const [username, setUsername] = useState("");
   const [post, setPost] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const addPost = (newPost) => {
     setPost([...post, newPost]);
   };
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
-      <Navbar></Navbar>
+      <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}></Navbar>
       <Routes>
         <Route path="/" element={<Home></Home>}></Route>
         <Route path="/ourstory" element={<OurStory></OurStory>}></Route>
         <Route
           path="/login"
-          element={<Login setUsername={setUsername}></Login>} // postavljamo da login postavlja ime
+          element={
+            <Login
+              setUsername={setUsername}
+              onLogin={() => setIsLoggedIn(true)}
+            ></Login>
+          } // postavljamo da login postavlja ime
         ></Route>
         <Route
           path="/dashboard"
